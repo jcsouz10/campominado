@@ -2,35 +2,30 @@ import React from 'react';
 import './Square.css';
 
 class Square extends React.Component {
-    constructor(){
-        super();
+  constructor(){
+    super();
 
-        this.state = {
-            itemsSquare: [],
-        }
+    this.state = {
+      status: ''
     }
+  }
 
-    clicked = () => {
-        const { index, itemSquare, item } = this.props;
+  clicked = () =>{
+    const { index, status} = this.props;
 
-        this.setState({
-            itemSquare: this.props.itemSquare[index].status = true
-          });
+    this.setState({
+      status: status[index]
+  })
 
+  console.log( status[index])
+  }
 
-        console.log(this.props.itemSquare)
-        
-
-
-    }
-
-    render() {
-        return (
-            <div>
-                <div className="square" onClick={this.clicked}> Oi </div>
-            </div>
-        )
-    }
+  render () {
+   const activeElements = this.props.objects
+      .filter(obj => obj.status)
+    return (<div className="square" onClick={this.clicked}>{this.props.children("field")}</div>);
+  }
 }
 
 export default Square;
+

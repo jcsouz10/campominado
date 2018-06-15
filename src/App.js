@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Square from './Square.js';
+import Componente from './Componente.js';
 
 class App extends Component {
   constructor() {
     super();
 
     this.state = {
+      position: Array(18).fill(null),
       objects: [{
         item: "bomb",
         status: false
@@ -74,31 +76,19 @@ class App extends Component {
       },
       {
         item: "field",
-        status: false
+        status: 'Tudobem'
       }
 
       ],
-      itemSquare: [],
+      status: []
     }
   }
 
   startGame = () => {
-    for (let i = 0; i < this.state.objects.length; i++) {
-      let randomItems = this.state.objects[Math.floor(Math.random() * this.state.objects.length)];
-      this.state.itemSquare.push(randomItems)
-    }
-
-
-  }
-
-  teste = () =>{
-    const {itemSquare} = this.state;
-
+    const statusElements = this.state.objects.map(i => i.status);
     this.setState({
-      itemSquare: this.state.itemSquare[0].status = false ? true : false
+      status: statusElements
     })
-
-   console.log(this.state.itemSquare[0].status)
   }
 
 
@@ -106,11 +96,12 @@ class App extends Component {
     return (
       <div>
         <div id="game">
-        <button onClick={this.teste}> teste </button>
-
+          <Componente objects={this.state.objects} />
           <button onClick={this.startGame}> START GAME </button>
           <div id="board">
-            {this.state.objects.map((item, index) => <Square itemSquare={this.state.itemSquare} index={index} board={this.state.board} />)}
+            {this.state.position.map((item, index) => <Square objects={this.state.objects} status={this.state.status} index={index}>
+              {props => (<span>{props}</span>)}
+            </Square>)}
           </div>
         </div>
       </div>
